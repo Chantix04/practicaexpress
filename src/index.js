@@ -40,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./routes/users.routes'));
 app.use(require('./routes/task.routes'));
+app.use(require('./routes/auth.routes'));
 
 // Template Engine
 app.set('views', path.join(__dirname, 'views'));

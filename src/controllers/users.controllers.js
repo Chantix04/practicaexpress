@@ -1,5 +1,5 @@
 const User = require("../models/User");
-
+const bcrypt = require('bcrypt')
 const ctrlUser = {};
 
 ctrlUser.getUsers = async  (req,res) => { //request handler || manejador de peticiones
@@ -13,12 +13,13 @@ ctrlUser.getUsers = async  (req,res) => { //request handler || manejador de peti
 //Controlador para crear un nuevo usuario
 ctrlUser.postUsers =  async (req,res) => { //request handler || manejador de peticiones
     //Se desestructuran los datos
-    const { name, email, password, ...otrosDatos } = req.body;
-    
+    const { name, email, password:passwordRecibida, ...otrosDatos } = req.body;
+    //Encriptamos la contraseña del usuario
+    const newPassword = bcrypt.hashSync( passwordRecibida, 10)
     //Se crea un nuevo usuario
     const nuevoUsuario = new User({
         name,
-        password,
+        password: newPassword,
         email
     });
 
